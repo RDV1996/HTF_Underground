@@ -26,26 +26,34 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final int BARCODE_READER_REQUEST_CODE = 1;
-    APIInterface apIInetface;
+    APIInterface apiInetface;
     Auth loggedIn;
 
-    private void login(String code){
-        Call<Auth> call= apIInetface.createUser(code);
+    private void login(String code) {
+        Call<Auth> call = apiInetface.createUser(code);
         call.enqueue(new Callback<Auth>() {
             @Override
             public void onResponse(Call<Auth> call, Response<Auth> response) {
-                loggedIn = response.body();
-                Toast.makeText(getApplicationContext(), loggedIn.getUser().getName(),
-                        Toast.LENGTH_LONG).show();
+                if (response.isSuccessful()) {
+                    loggedIn = response.body();
+                    Toast.makeText(getApplicationContext(), loggedIn.getAccessToken(),
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), response.message(),
+                            Toast.LENGTH_LONG).show();
+                }
+
             }
 
             @Override
             public void onFailure(Call<Auth> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Could notlog in at this moment",
+                call.cancel();
+                Toast.makeText(getApplicationContext(), t.getMessage(),
                         Toast.LENGTH_LONG).show();
             }
         });
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
             }
         });
-        apIInetface = APIClient.getClient().create(APIInterface.class);
+        apiInetface = APIClient.getClient().create(APIInterface.class);
 
         Button terroristsListButton = (Button) findViewById(R.id.terroristslist);
         terroristsListButton.setOnClickListener(new View.OnClickListener() {

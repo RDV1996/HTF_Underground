@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="be.thomasmore.underground">
+            android:label="@string/title_activity_terrorists_list"
+            package="be.thomasmore.underground">
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -23,7 +25,6 @@
         </activity>
         <activity
             android:name=".TerroristsList"
-            android:label="@string/title_activity_terrorists_list"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".barcode.BarcodeCaptureActivity"
