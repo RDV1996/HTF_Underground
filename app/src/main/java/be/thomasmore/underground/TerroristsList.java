@@ -8,6 +8,8 @@ import android.widget.ListView;
 
 import java.util.List;
 
+import be.thomasmore.underground.classes.Terrorist;
+
 public class TerroristsList extends AppCompatActivity {
 
     List<Terrorist> terrorists;
