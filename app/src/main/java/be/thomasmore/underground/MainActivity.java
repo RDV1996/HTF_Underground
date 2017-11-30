@@ -63,6 +63,15 @@ public class MainActivity extends AppCompatActivity {
         });
         apIInetface = APIClient.getClient().create(APIInterface.class);
 
+        Button terroristsListButton = (Button) findViewById(R.id.terroristslist);
+        terroristsListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), TerroristsList.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -105,10 +114,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void nextActivity(View v) {
-        Intent intent = new Intent(this, TerroristsList.class);
-        startActivity(intent);
     }
 }
