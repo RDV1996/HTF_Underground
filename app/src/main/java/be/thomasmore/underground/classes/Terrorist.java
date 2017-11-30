@@ -1,4 +1,4 @@
-package be.thomasmore.underground;
+package be.thomasmore.underground.classes;
 
 public class Terrorist {
     private String id;

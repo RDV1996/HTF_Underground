@@ -16,10 +16,36 @@ import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 
 import be.thomasmore.underground.barcode.BarcodeCaptureActivity;
+import be.thomasmore.underground.classes.Auth;
+import be.thomasmore.underground.rest.APIClient;
+import be.thomasmore.underground.rest.APIInterface;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final int BARCODE_READER_REQUEST_CODE = 1;
+    APIInterface apIInetface;
+    Auth loggedIn;
+
+    private void login(String code){
+        Call<Auth> call= apIInetface.createUser(code);
+        call.enqueue(new Callback<Auth>() {
+            @Override
+            public void onResponse(Call<Auth> call, Response<Auth> response) {
+                loggedIn = response.body();
+                Toast.makeText(getApplicationContext(), loggedIn.getUser().getName(),
+                        Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<Auth> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Could notlog in at this moment",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,13 +61,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
             }
         });
+        apIInetface = APIClient.getClient().create(APIInterface.class);
 
     }
 
-    private void onQRCodeClick(View v){
-        Intent intent = new Intent(getApplicationContext(), BarcodeCaptureActivity.class);
-        startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
-    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == BARCODE_READER_REQUEST_CODE) {
@@ -51,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
                     Point[] p = barcode.cornerPoints;
                     Toast.makeText(this, barcode.displayValue,
                             Toast.LENGTH_LONG).show();
+                    login(barcode.displayValue);
+
                 } else
                     Toast.makeText(this, R.string.no_barcode_captured,
                             Toast.LENGTH_LONG).show();
