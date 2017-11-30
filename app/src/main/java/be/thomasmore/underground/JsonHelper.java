@@ -15,8 +15,7 @@ public class JsonHelper {
         List<Terrorist> terrorists = new ArrayList<>();
 
         try {
-            JSONObject jsonTerrorist = new JSONObject(jsonTekst);
-            JSONArray jsonArrayTerrorists = new JSONArray("Terrorists");
+            JSONArray jsonArrayTerrorists = new JSONArray("terrorists");
             for (int i = 0; i < jsonArrayTerrorists.length(); i++) {
                 JSONObject jsonObjectTerrorist = jsonArrayTerrorists.getJSONObject(i);
 

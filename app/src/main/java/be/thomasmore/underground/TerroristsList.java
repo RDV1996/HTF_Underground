@@ -3,14 +3,9 @@ package be.thomasmore.underground;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-
-import java.util.List;
+import android.widget.Toast;
 
 public class TerroristsList extends AppCompatActivity {
-
-    List<Terrorist> terrorists;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,22 +19,34 @@ public class TerroristsList extends AppCompatActivity {
 
     private void readTerrorists()
     {
-        HttpReader httpReader = new HttpReader();
+
+        /*HttpReader httpReader = new HttpReader();
         httpReader.setOnResultReadyListener(new HttpReader.OnResultReadyListener() {
             @Override
             public void resultReady(String result) {
                 JsonHelper jsonHelper = new JsonHelper();
                 List<Terrorist> terrorists = jsonHelper.getTerrorists(result);
-                showTerrorists(terrorists);
+                String tekst = " - ";
+                for (int i = 0; i < terrorists.size(); i++ ) {
+                    tekst += terrorists.get(i).getName() + " - ";
+                }
+                toon(tekst);
             }
         });
-        httpReader.execute("http://37.230.98.72/htf/api/terrorists");
+        httpReader.execute("http://37.230.98.72/htf/api/terrorists");*/
     }
 
+    private void toon(String text)
+    {
+        Toast.makeText(getBaseContext(), text, Toast.LENGTH_LONG).show();
+    }
+
+    /*
     private void showTerrorists(List<Terrorist> terrorists)
     {
         ArrayAdapter<Terrorist> itemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, terrorists);
         ListView listView = (ListView) findViewById(R.id.listViewTerrorists);
         listView.setAdapter(itemsAdapter);
     }
+    */
 }

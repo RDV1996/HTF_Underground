@@ -36,6 +36,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button terroristsListButton = (Button) findViewById(R.id.terroristslist);
+        terroristsListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), TerroristsList.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void onQRCodeClick(View v){
@@ -80,10 +89,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void nextActivity(View v) {
-        Intent intent = new Intent(this, TerroristsList.class);
-        startActivity(intent);
     }
 }
