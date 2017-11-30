@@ -1,5 +1,6 @@
 package be.thomasmore.underground.rest;
 
+import be.thomasmore.underground.classes.Auth;
 import java.util.List;
 
 import be.thomasmore.underground.classes.Terrorist;
@@ -15,7 +16,7 @@ public interface APIInterface {
     Call<List<Terrorist>> getTerrorists(@Header("Authorization") String accessToken );
 
     @POST("/api/auth/login")
-    Call createUser(@Body String qrCode);
+    Call<Auth> createUser(@Body String qrCode);
 
 }
 
