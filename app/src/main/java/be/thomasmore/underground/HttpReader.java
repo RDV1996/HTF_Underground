@@ -28,10 +28,12 @@ public class HttpReader extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... urls) {
         String text = null;
 
+        String accesstoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MTIwNDcwMTUsImRhdGEiOnsidXNlciI6eyJpZCI6IjVhMTk4YTMyODBhZTM5NWYzMDRjZGJmZiIsInJvbGUiOjB9fSwiaWF0IjoxNTEyMDQ1MjE1fQ.H7sVMpgd8Gr8He3hCcFYn9zQtHEcg86iVikr6tFkb2I";
+
         try {
             URL url= new URL(urls[0]);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestProperty ("Authorization", "Bearer");
+            urlConnection.setRequestProperty ("Authorization", "Bearer " + accesstoken);
             try {
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
                 text = convertStreamToString(in);
