@@ -9,6 +9,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import be.thomasmore.underground.classes.Terrorist;
+
 public class JsonHelper {
 
     public List<Terrorist> getTerrorists(String jsonTekst) {
